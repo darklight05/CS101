@@ -1,5 +1,5 @@
-#include <iostream>
 #include <stdlib.h>
+#include <iostream>
 
 //may have to use templates for key and value
     //template <typedef keyType>
