@@ -29,10 +29,6 @@ struct Node{
 class RBTree{
     private:
         Node *root;
-    //protected:
-        //void rotateLeft(Node *&root, Node *&pt);
-        //void rotateRight(Node *&root, Node *&pt);
-        //void insertFixUp(Node *&root, Node *&pt);
     public:
         RBTree(){
            root = NULL; 
@@ -171,10 +167,8 @@ class RBTree{
             if (root == NULL){
                 return;
             }
-            inorderHelper(root->left);
-            cout << root->key << " ";
-            inorderHelper(root->right);
         }
+
         void inorder(){
             inorderHelper(root);
         }
