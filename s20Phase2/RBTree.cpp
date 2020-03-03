@@ -14,7 +14,7 @@ struct Node{
     int key;
     int value;
     int leftSize;
-    Color color;
+    bool color;
     Node *left, *right, *parent;
 
     Node (int key, int value){
@@ -34,12 +34,7 @@ class RBTree{
            root = NULL; 
         }
         //change this to the keyType and valueType
-        RBTree(int K[], int V[], int s){
-            for (int i = 0; i < s; i++){
-                insert(K[i], V[i]);
-            }
-        }
-            //this builds the tree with the arrays K and V of size s
+        //RBTree(int K[], int V[], int s);
 
         Node *bstInsert(Node *root, Node *pt){
             if (root == NULL){
@@ -48,57 +43,52 @@ class RBTree{
 
             if (pt->key < root->key){
                 root->left = bstInsert(root->left, pt);
-                root->right->parent = root;
+                root->left->parent = root;
             }
             else if (pt->key > root->key){
                 root->right = bstInsert(root->right, pt);
-                root->left->parent = root;
+                root->right->parent = root;
             }
 
             return root;
         }
-        void swap(Color &c1, Color &c2){
-            Color temp = c1;
-            c1 = c2;
-            c2 = temp;
-        }
         void rotateLeft(Node *&root, Node *&pt){
-            Node *temp = pt->right;
-            pt->right = temp->left;
-            if (temp->left != NULL){
-                temp->left->parent = pt;
+            Node *tempRight = pt->right;
+            pt->right = tempRight->left;
+            if (pt->right != NULL){
+                pt->right->parent = pt;
             }
-            temp->parent = pt->parent;
+            tempRight->parent = pt->parent;
             if (pt->parent == NULL){
-                root = temp;
+                root = tempRight;
             }
             else if (pt == pt->parent->left){
-                pt->parent->left = temp;
+                pt->parent->left = tempRight;
             }
             else {
-                pt->parent->right = temp;
+                pt->parent->right = tempRight;
             }
-            temp->left = pt;
-            pt->parent = temp;
+            tempRight->left = pt;
+            pt->parent = tempRight;
         }
         void rotateRight(Node *&root, Node *&pt){
-            Node *temp = pt->left;
-            pt->left = temp->right;
-            if (temp->right != NULL){
-                temp->right->parent = pt;
+            Node *tempLeft = pt->left;
+            pt->left = tempLeft->right;
+            if (pt->left != NULL){
+                pt->left->parent = pt;
             }
-            temp->parent = pt->parent;
+            tempLeft->parent = pt->parent;
             if (pt->parent == NULL){
-                root = temp;
+                root = tempLeft;
             }
-            else if (pt == pt->parent->right){
-                pt->parent->right = temp;
+            else if (pt == pt->parent->left){
+                pt->parent->left = tempLeft;
             }
             else {
-                pt->parent->left = temp;
+                pt->parent->right = tempLeft;
             }
-            temp->right = pt;
-            pt->parent = temp;
+            tempLeft->right = pt;
+            pt->parent = tempLeft;
         }
         void insertFixUp(Node *&root, Node*&pt){
             Node *parentPt = NULL;
@@ -163,10 +153,18 @@ class RBTree{
             insertFixUp(root, pt);
         }
 
+        RBTree(int K[], int V[], int s){
+            for (int i = 0; i < s; i++){
+                insert(K[i],V[i]);
+            }
+        }
         void inorderHelper(Node* root){
             if (root == NULL){
                 return;
             }
+            inorderHelper(root->left);
+            cout << root->key << " ";
+            inorderHelper(root->right);
         }
 
         void inorder(){

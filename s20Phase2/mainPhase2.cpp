@@ -3,13 +3,15 @@
 using namespace std;
 
 int main(){
+	cout << "start testing" << endl;
 	//string K[10] = {"A","B","C","D","E","F","G","J","I","K"};
 	int K[10] = {10,9,8,7,6,5,4,3,2,1};
     int V[10] = {10,9,8,7,6,5,4,3,2,1};
-	
-	RBTree T1, T2(K,V,10);
-	
-	for(int i=0; i<10; i++) T1.insert(K[i],V[i]);
+	cout << "here" << endl;
+	RBTree T1; 
+	//RBTree T2(K,V,10);
+
+	for(int i=0; i<10; i++) T1.insert(K[i], V[i]);
 	// T1 and T2 should be identical trees
 	
 	//cout << *(T2.search("C")) << endl;
@@ -25,7 +27,7 @@ int main(){
 	//Should output D B A C F E H G I K
     cout << "pre inorder" << endl;
 	T1.inorder();
-	T2.inorder();
+	//T2.inorder();
 	//Should output	A B C D E F G H I K
 	
 	//cout << T2.remove("D") << endl;
@@ -58,5 +60,6 @@ int main(){
 		if(*(X.search(i)) != i) cout << "Search error" << endl;
 	}  
 	//Should be no output and should take seconds, not minutes
-	return 0*/
+	*/
+	return 0;
 }
