@@ -1,49 +1,53 @@
+//THINGS TO MAKE
+    //~RBTree(); 
+    //int remove(keytype K);
+    //int rank(keytype K); <----woring on this now
+    //keytype select(int pos);
+    //keytype *successor(keytype K)
+    //keytype *predecessor(keytype K)
+
 #include <stdlib.h>
 #include <iostream>
-
-//may have to use templates for key and value
-    //template <typedef keyType>
-    //template <typedef valueType>
-//mmaybe like that idk
 using namespace std; 
-
 
 enum Color {red, black};
 
-struct Node{
-    int key;
-    int value;
-    int leftSize;
-    bool color;
-    Node *left, *right, *parent;
-
-    Node (int key, int value){
-        this->key = key;
-        this->value = value;
-        this->leftSize = 0;
-        left = right = parent = NULL;
-        this->color = red;
-    }
-};
-
+template<typename keytype, typename valuetype>
 class RBTree{
     private:
+        struct Node{
+            keytype key;
+            valuetype value;
+            bool color;
+            int leftSize;
+            Node *left, *right, *parent;
+            Node (keytype key, valuetype value){
+                this->key = key;
+                this->value = value;
+                left = right = parent = NULL;
+                this->color = red;
+                leftSize = 0;
+            }
+        }; 
+        
         Node *root;
+
     public:
+        int TreeSize;
         RBTree(){
-           root = NULL; 
+            root = NULL;
+            TreeSize = 0;
         }
-        //change this to the keyType and valueType
-        //RBTree(int K[], int V[], int s);
 
         Node *bstInsert(Node *root, Node *pt){
-            if (root == NULL){
+            if (root == NULL){ 
                 return pt;
             }
 
             if (pt->key < root->key){
                 root->left = bstInsert(root->left, pt);
                 root->left->parent = root;
+                root->leftSize = root->leftSize+1;
             }
             else if (pt->key > root->key){
                 root->right = bstInsert(root->right, pt);
@@ -54,6 +58,8 @@ class RBTree{
         }
         void rotateLeft(Node *&root, Node *&pt){
             Node *tempRight = pt->right;
+            //GET RANKED MF
+            tempRight->leftSize = pt->leftSize + tempRight->leftSize + 1;
             pt->right = tempRight->left;
             if (pt->right != NULL){
                 pt->right->parent = pt;
@@ -73,6 +79,8 @@ class RBTree{
         }
         void rotateRight(Node *&root, Node *&pt){
             Node *tempLeft = pt->left;
+            //GET RANKED MF
+            pt->leftSize = pt->leftSize - tempLeft->leftSize;
             pt->left = tempLeft->right;
             if (pt->left != NULL){
                 pt->left->parent = pt;
@@ -147,18 +155,22 @@ class RBTree{
             }
             root->color = black;
         }
-        void insert(int key, int value){ //will have to change key and value to 'keytype K' and 'valuetype V'
+        void insert(keytype key, valuetype value){ //will have to change key and value to 'keytype K' and 'valuetype V'
             Node *pt = new Node(key, value);
             root = bstInsert(root, pt);
             insertFixUp(root, pt);
+            TreeSize++;
         }
 
-        RBTree(int K[], int V[], int s){
+        RBTree(keytype K[], valuetype V[], int s){
+            root = NULL;
+            TreeSize = 0;
             for (int i = 0; i < s; i++){
-                insert(K[i],V[i]);
+                insert(K[i], V[i]);
             }
         }
-        void inorderHelper(Node* root){
+
+        void inorderHelper(Node *root){
             if (root == NULL){
                 return;
             }
@@ -166,8 +178,73 @@ class RBTree{
             cout << root->key << " ";
             inorderHelper(root->right);
         }
-
         void inorder(){
             inorderHelper(root);
+        }
+
+        void preorderHelper(Node* root){
+            if (root == NULL){
+                return;
+            }
+            cout << root->key << " ";
+            preorderHelper(root->left);
+            preorderHelper(root->right);
+        }
+        void preorder(){
+            preorderHelper(root);
+        }
+
+        void postorderHelper(Node *root){
+            if (root == NULL){
+                return;
+            }
+            postorderHelper(root->left);
+            postorderHelper(root->right);
+            cout << root->key << " ";
+        }
+        void postorder(){
+            postorderHelper(root);
+        }
+
+        int size(){
+            return TreeSize;
+        }
+        
+        int rank(keytype K){
+            Node *p = root;
+            while (p != NULL){
+                cout << "inside while loop" << endl;
+                if (p->key == K){
+                    // cout << "here" << endl;
+                    return (p->leftSize+1);
+                }
+
+                else if (p->key < K){
+                    p = p->left;
+                }
+                else if (p->key > K){
+                    cout << p->leftSize << endl;
+                    p = p->right;
+                    p->leftSize = p->leftSize + p->parent->leftSize + 1;
+                }
+            }
+            return 0;
+        }
+
+        valuetype * search(keytype K){
+            static valuetype * searchingFor;
+            while (root != NULL){
+                if (root->key == K){
+                    searchingFor = &root->value;
+                    return searchingFor;
+                }
+                else if (root->key > K){
+                    root = root->right;
+                }
+                else if (root->key < K){
+                    root = root->left;
+                }
+            }
+            return NULL;
         }
 };
