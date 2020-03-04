@@ -45,9 +45,9 @@ class RBTree{
             }
 
             if (pt->key < root->key){
+                root->leftSize++;
                 root->left = bstInsert(root->left, pt);
                 root->left->parent = root;
-                root->leftSize = root->leftSize+1;
             }
             else if (pt->key > root->key){
                 root->right = bstInsert(root->right, pt);
@@ -79,8 +79,8 @@ class RBTree{
         }
         void rotateRight(Node *&root, Node *&pt){
             Node *tempLeft = pt->left;
-            //GET RANKED MF
-            pt->leftSize = pt->leftSize - tempLeft->leftSize;
+            //THIS SHIT COMPLICADO
+            pt->leftSize = pt->leftSize - tempLeft->leftSize + temp->right->leftSize;
             pt->left = tempLeft->right;
             if (pt->left != NULL){
                 pt->left->parent = pt;
@@ -211,21 +211,21 @@ class RBTree{
         }
         
         int rank(keytype K){
-            Node *p = root;
-            while (p != NULL){
-                cout << "inside while loop" << endl;
-                if (p->key == K){
+            //Node *p = root;
+            while (root != NULL){
+                //cout << "inside while loop" << endl;
+                if (root->key == K){
                     // cout << "here" << endl;
-                    return (p->leftSize+1);
+                    return (root->leftSize+1);
                 }
 
-                else if (p->key < K){
-                    p = p->left;
+                else if (root->key < K){
+                    root = root->left;
                 }
-                else if (p->key > K){
-                    cout << p->leftSize << endl;
-                    p = p->right;
-                    p->leftSize = p->leftSize + p->parent->leftSize + 1;
+                else if (root->key > K){
+                    //cout << p->leftSize << endl;
+                    root = root->right;
+                    root->leftSize = root->leftSize + root->parent->leftSize + 1;
                 }
             }
             return 0;
