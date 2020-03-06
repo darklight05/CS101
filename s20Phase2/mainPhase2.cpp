@@ -11,19 +11,24 @@ int main(){
 	for(int i=0; i<11; i++) {
 		T1.insert(K[i], V[i]);
 	}
-	cout << "inorder "; T1.inorder();
-	cout << "postorder "; T1.postorder();
-	cout << "preorder "; T1.preorder();
-	cout << "size is " << T1.size() << endl;
+	RBTree<int, int> T2;
+	T2 = T1;
+	RBTree<int, int> T3(T1);
 
-	cout << "removing 5 is " << T1.remove(5) << endl;
-	cout << "removing 10 is " << T1.remove(10) << endl;
-	cout << "removing 0 is " << T1.remove(0) << endl;
-	cout << "removing 1 is " << T1.remove(1) << endl;
 	cout << "inorder "; T1.inorder();
-	cout << "preorder "; T1.preorder();
-	cout << "postorder "; T1.postorder();
-	cout << "size is " << T1.size() << endl;
+	cout << "inorder "; T2.inorder();
+	cout << "inorder "; T3.inorder();
+	// cout << "postorder "; T1.postorder();
+	// cout << "preorder "; T1.preorder();
+	// cout << "size is " << T1.size() << endl;
+
+	// cout << "removing 0 is " << T1.remove(0) << endl;
+	// cout << "Rank of 5 = " << T1.rank(5) << endl;
+	// cout << "removing 1 is " << T1.remove(1) << endl;
+	// cout << "inorder "; T1.inorder();
+	// cout << "preorder "; T1.preorder();
+	// cout << "postorder "; T1.postorder();
+	// cout << "size is " << T1.size() << endl;
 	
 	// cout << "T2, RBTree(keytype K[], valuetype V[], int s) test" << endl;
 	// RBTree<int, int> T2(K,V,11);

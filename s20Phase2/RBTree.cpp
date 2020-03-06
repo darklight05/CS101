@@ -1,7 +1,6 @@
 //successor and predecessor broken again
 //THINGS TO MAKE
     //copy assignment operator operator=
-    //int remove(keytype K);
 
 #include <stdlib.h>
 #include <iostream>
@@ -39,20 +38,6 @@ class RBTree{
             TreeSize = 0;
         }
 
-        //copy constructor MAY BE WRONG
-        Node *copyHelper(const Node *copy){
-            if (copy){
-                insert(copy->key, copy->value);
-                copyHelper(root->left);
-                copyHelper(root->right);
-            }
-        }
-        RBTree(const RBTree<keytype, valuetype>& copy) {
-            root = Tnil;
-            copyHelper(copy.root);
-        }
-
-        //destructor MAY BE WRONG  
         void fuckingDelete(Node *&root){
             if (root != Tnil){
                 fuckingDelete(root->left);
@@ -420,6 +405,19 @@ class RBTree{
                     temp = temp->left;
                 }
                 else if (K == temp->key){
+                    Node *decreementer = root;
+                    while (decreementer != Tnil){
+                        if (K > decreementer->key){
+                            decreementer = decreementer->right;
+                        }
+                        else if (K < decreementer->key){
+                            decreementer->leftSize--;
+                            decreementer = decreementer->left;
+                        }
+                        else {
+                            break;
+                        }
+                    }
                     Node *z = temp;
                     y = z;
                     bool yOriginalColor = y->color;
@@ -458,6 +456,7 @@ class RBTree{
                     break;
                 }
             }
+            //key not in tree
             return 0;
         }
 };
