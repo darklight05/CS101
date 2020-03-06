@@ -19,11 +19,14 @@ int main(){
 	cout << "T2, RBTree(keytype K[], valuetype V[], int s) test" << endl;
 	RBTree<int, int> T2(K,V,11);
 
-	cout << "inorder "; T2.inorder(); cout << endl;
-	cout << "postorder "; T2.postorder(); cout << endl;
-	cout << "preorder "; T2.preorder(); cout << endl;
+	cout << "inorder "; T2.inorder();
+	cout << "postorder "; T2.postorder();
+	cout << "preorder "; T2.preorder();
 
-	cout << "Search of 12 = " << *(T2.search(12)) << endl;
-	
+	cout << "Search of 1 = " << *(T2.search(1)) << endl;
+	cout << "Rank of 4 = " << T2.rank(4) << endl;
+	cout << "Select at pos(6) = " << T2.select(6) << endl;
+	cout << "Successor of 2 = " << *(T2.successor(2)) << endl; //should be 6
+	cout << "Predecessor of 4 = " << *(T2.predecessor(4)) << endl; //should be 4
 	return 0;
 }

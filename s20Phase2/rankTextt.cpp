@@ -13,8 +13,16 @@ int main(){
     T1.inorder();
     cout << endl;
 
-    for (int i=0; i<11; i++){
-        cout << "Rank of " << i << " = " << T1.rank(i) << endl;
-    }
+    cout << "Rank at 0 = " << T1.rank(0) << endl;
+    cout << "Rank at 1 = " << T1.rank(1) << endl;
+    cout << "Rank at 2 = " << T1.rank(2) << endl;
+    cout << "Rank at 3 = " << T1.rank(3) << endl;
+    cout << "Rank at 4 = " << T1.rank(4) << endl;
+    cout << "Rank at 5 = " << T1.rank(5) << endl;
+    cout << "Rank at 6 = " << T1.rank(6) << endl;
+    cout << "Rank at 7 = " << T1.rank(7) << endl;
+    cout << "Rank at 8 = " << T1.rank(8) << endl;
+    cout << "Rank at 9 = " << T1.rank(9) << endl;
+    cout << "Rank at 10 = " << T1.rank(10) << endl;
     return 0;
 }
