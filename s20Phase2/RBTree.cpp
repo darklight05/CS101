@@ -1,5 +1,3 @@
-//PREDECESSOR IS BREAKING BECAUSE RANK NUMBER IS NOT CORRECT
-
 //THINGS TO MAKE
     //copy assignment operator operator=
     //int remove(keytype K);
@@ -253,20 +251,16 @@ class RBTree{
             Node *temp = root;
             int rankNumber = 1;
             while (temp != NULL){
-                if (temp->key == K){
-                    rankNumber = temp->leftSize+1;
+                if (K == temp->key){
+                    rankNumber = rankNumber + temp->leftSize;
                     return rankNumber;
                 }
                 else if (K > temp->key){
-                    temp = temp->right;
                     rankNumber = rankNumber + temp->leftSize + 1;
-                    if (temp->key == K){
-                        return rankNumber;
-                    }
+                    temp = temp->right;
                 }
                 else if (K < temp->key){
                     temp = temp->left;
-                    rankNumber = temp->leftSize +1;
                 }
             }
             return 0;
@@ -321,9 +315,8 @@ class RBTree{
                 int rankNumber = 1;
                 while (temp != NULL){
                     if (K > temp->key){
-                        int prevLeftSize = temp->leftSize;
+                        rankNumber = rankNumber + temp->leftSize + 1;
                         temp = temp->right;
-                        temp->leftSize += prevLeftSize + 1;
                     }
                     else if (K < temp->key){
                         temp = temp->left;
@@ -399,9 +392,8 @@ class RBTree{
 
             while (temp != NULL){
                 if (K > temp->key){
-                    int prevLeftSize = temp->leftSize;
+                    rankNumber = rankNumber + temp->leftSize + 1;
                     temp = temp->right;
-                    temp->leftSize += prevLeftSize + 1;
                 }
                 else if (K < temp->key){
                     temp = temp->left;
