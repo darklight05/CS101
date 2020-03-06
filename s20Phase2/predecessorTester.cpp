@@ -9,11 +9,11 @@ int main(){
     cout << "Testing predecessor" << endl;
 
     RBTree<int, int> T1;
-    for (int i = 0; i < 1000; i++){
+    for (int i = 0; i < 100; i++){
         T1.insert(i, i);
     }
     // cout << *(T1.successor(10)) << endl;
-    for (int i = 1; i < 1000; i++){
+    for (int i = 1; i < 100; i++){
         cout << "predecessor of " << i << " = " << *(T1.predecessor(i)) << endl;
     }
     return 0;
