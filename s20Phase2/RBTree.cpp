@@ -1,6 +1,4 @@
-//successor and predecessor broken again
-//THINGS TO MAKE
-    //copy assignment operator operator=
+//CHECK WITH DIXON TO SEE IF STRUCTURE NEEDS TO BE MAINTAINED AFTER COPY IN COPY OPERATORS
 
 #include <stdlib.h>
 #include <iostream>
@@ -38,18 +36,37 @@ class RBTree{
             TreeSize = 0;
         }
 
-        void fuckingDelete(Node *&root){
-            if (root != Tnil){
-                fuckingDelete(root->left);
-                fuckingDelete(root->right);
-                delete root;
+        void fuckingDelete(Node *&temp, Node*&tempTnil){
+            if (temp != tempTnil){
+                fuckingDelete(temp->left, tempTnil);
+                fuckingDelete(temp->right, tempTnil);
+                delete temp;
             }
+            temp = NULL;
         }
         ~RBTree(){
-            fuckingDelete(root);
-            delete Tnil;
+            fuckingDelete(root, Tnil);
         }
-        
+
+        void copy(Node *old_obj, Node *old_Tnil){
+            if (old_obj != old_Tnil){
+                insert(old_obj->key, old_obj->value);
+                copy(old_obj->left, old_Tnil);
+                copy(old_obj->right, old_Tnil);
+            }
+        }
+        RBTree (const RBTree &old_obj){
+            Tnil = new Node;
+            root = Tnil;
+            copy(old_obj.root, old_obj.Tnil);
+        }
+        RBTree &operator=(const RBTree &old_obj){
+            Tnil = new Node;
+            root = Tnil;
+            copy(old_obj.root, old_obj.Tnil);
+            return *this;
+        }
+
         Node *bstInsert(Node *root, Node *pt){
             if (root == Tnil){ 
                 return pt;
@@ -68,7 +85,6 @@ class RBTree{
 
             return root;
         }
-        //definitely need to make sure im changing rightSize coreectly in rotate left and right functions
         void rotateLeft(Node *&pt){
             Node *tempRight = pt->right;
             tempRight->leftSize = pt->leftSize + tempRight->leftSize + 1;
@@ -168,7 +184,7 @@ class RBTree{
             }
             root->color = black;
         }
-        void insert(keytype key, valuetype value){ //will have to change key and value to 'keytype K' and 'valuetype V'
+        void insert(keytype key, valuetype value){ 
             Node *pt = new Node;
             pt->key = key;
             pt->value = value;
@@ -184,6 +200,8 @@ class RBTree{
         }
 
         RBTree(keytype K[], valuetype V[], int s){
+            
+            Tnil =  new Node;
             root = Tnil;
             TreeSize = 0;
             for (int i = 0; i < s; i++){
@@ -265,7 +283,7 @@ class RBTree{
                 else if (K > s->key){
                     s = s->right;
                 }
-                else if (K == s->value){
+                else if (K == s->key){
                     return &s->value;
                 }
                 else {
