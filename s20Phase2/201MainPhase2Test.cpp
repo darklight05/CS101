@@ -78,23 +78,18 @@ int main(){
 		if(X.select(i) != i-1) selectError++; //cout << "Select error before delete" << endl;
 		if(*(X.search(i)) != 100000-i) searchError++;//cout << "Search error before delete" << endl;
 	}
-	cout << "This it 1" << endl;
 	printErrors("Rank before delete",rankError);
 	printErrors("Select before delete",selectError);
 	printErrors("Search before delete",searchError);
-	cout << "This it 2" << endl;
 	//cout << "Rank error is " << rankError << endl;
 	//cout << "Select error is " << selectError << endl;
 	//cout << "search error is " << searchError << endl;
 	rankError=0;
 	selectError=0;
 	searchError=0;
-	cout << "This it 3" << endl;
 	for (int i=0;i<100000;i+=13) X.remove(i);
 	for (int i=1;i<100000-100000/13;i++){
-		cout << "This it 4" << endl;
 		if (i%13) {
-			cout << i << " is i" << endl;
 			if(X.rank(i) != i-i/13) rankError++; //cout << "Rank error after delete " << X.rank(i) << " should be " << i << " - " << i-i/13 << endl;
 			if(*(X.search(i)) != 100000-i) searchError++;// cout << "Search error after delete" << endl;
 		}
@@ -105,8 +100,6 @@ int main(){
 				cout << "i is " << i << " Select error after delete " << X.select(i)  << " should be " << part1Answer << " +++ " << answer << endl;
 			}
 	}
-	cout << "This it 4" << endl;
-	cout << "This it" << endl;
 	printErrors("Rank after delete",rankError);
 	printErrors("Select after delete",selectError);
 	printErrors("Search after delete",searchError);

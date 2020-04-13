@@ -349,7 +349,6 @@ class RBTree{
         }
 
         Node *selectHelper(int pos){
-            if (pos < TreeSize){
                 Node *temp = root;
                 int rankNumber = 1;
                 while (temp != Tnil){
@@ -367,7 +366,6 @@ class RBTree{
                         break;
                     }
                 }
-            }
             return NULL;
         }
         keytype select(int pos){
@@ -378,7 +376,7 @@ class RBTree{
         keytype *successor(keytype K){
             Node *successorNode;
             int Srank = rank(K);
-            if (Srank == 0) return NULL;
+            if (Srank == 0 || Srank == TreeSize) return NULL;
             else {
                 successorNode = selectHelper(Srank+1);
             }

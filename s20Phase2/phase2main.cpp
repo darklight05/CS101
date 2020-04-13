@@ -30,7 +30,7 @@ int main(){
 	T2.inorder();
 	//Should output	A B C D E F G H I K
 	
-	cout << T2.remove("D") << endl;
+	cout << T1.remove("D") << endl;
 	//Should output 1
 	
 	T2.preorder();

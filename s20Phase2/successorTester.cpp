@@ -3,19 +3,26 @@
 using namespace std;
 
 int main(){
-	//int K[11] = {0,1,2,3,4,5,6,7,8,9,10};
-    //int V[11] = {10,9,8,7,6,5,4,3,2,1,0};
+    string K[3] = {"Taylor","Rachel","Caelis"};
+    string V[3] = {"Eckenrode","Hoge","Wendel"};
 
-    cout << "Testing successor" << endl;
+    RBTree<string, string> T1(K, V, 3);
 
-    RBTree<int, int> T1;
-    for (int i = 0; i < 100; i++){
-        T1.insert(i, i);
+    cout << "I have only loved " << T1.size() << " girls, last names: ";
+    for (int i = 0; i < 3; i++){
+        cout << *(T1.search(K[i])) << " ";
     }
-    // cout << *(T1.successor(10)) << endl;
-    for (int i = 0; i < 100; i++){
-        cout << "successor of " << i << " = " << *(T1.successor(i)) << endl;
-    }
+    cout << ", but i realized it too late." << endl;
+
+    cout << "Always too slow on the jump" << endl;
+
+    T1.rank("Taylor");
+
+    cout << *(T1.successor("Rachel")) << ", she gave me too many chances." << endl;
+    cout << *(T1.predecessor("Taylor")) << ", I just let her slip through the cracks." << endl;
+    cout << T1.select(1) << ", I was never man enough to fight for her." << endl;
+    cout << "just a couple ones that my heart lacks" << endl;
+   
 
     return 0;
 }
