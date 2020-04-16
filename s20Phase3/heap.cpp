@@ -35,6 +35,11 @@ class Heap {
             valArray = new valuetype[1];
         }
 
+        ~Heap(){
+            delete[] keyArray;
+            delete[] valArray;
+        }
+
         void swapKey(keytype *x, keytype *y){
             keytype temp = *x;
             *x = *y;
@@ -97,8 +102,6 @@ class Heap {
         valuetype peekValue(){
             return valArray[0];
         }
-
-        int parent(int i){ return ((i-1)/2);}
 
         void insert(keytype k, valuetype v){
             Heap();

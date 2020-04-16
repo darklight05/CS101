@@ -21,9 +21,7 @@ class RBTree{
                 this->right = NULL;
                 this->left = NULL;
                 this->parent = NULL;
-                this->color = black;
-                // this->leftSize = 0;
-                // this->rightSize = 0; 
+                this->color = black; 
             }
         }; 
         Node *root;
